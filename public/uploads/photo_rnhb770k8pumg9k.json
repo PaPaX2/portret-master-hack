@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e88ecf58798a720d40d9dde"},"id":{"$numberInt":"1"},"performer":"John Doe","genre":"Rock","price":{"$numberInt":"25"},"day":{"$numberInt":"1"},"image":"/img/uploads/1fsd324fsdg.jpg"}
+{"_id":{"$oid":"5e88ecf58798a720d40d9ddf"},"id":{"$numberInt":"2"},"performer":"Rebekah Parker","genre":"R&B","price":{"$numberInt":"25"},"day":{"$numberInt":"1"},"image":"/img/uploads/2f342s4fsdg.jpg"}
+{"_id":{"$oid":"5e88ecf58798a720d40d9de0"},"id":{"$numberInt":"3"},"performer":"Maybell Haley","genre":"Pop","price":{"$numberInt":"40"},"day":{"$numberInt":"1"},"image":"/img/uploads/hdfh42sd213.jpg"}

@@ -12,13 +12,24 @@ exports.add = async (req, res) => {
 
       const fileName = file.path.split('/').slice(-1)[0]; // cut only filename from full path, e.g. C:/test/abc.jpg -> abc.jpg
       const validFile = fileName.split('.').slice(-1)[0];
-      console.log(title, author);
+
+      function escape(html) {
+        return html.replace(/&/g, "&amp;")
+                   .replace(/</g, "&lt;")
+                   .replace(/>/g, "&gt;")
+                   .replace(/"/g, "&quot;")
+                   .replace(/'/g, "&#039;");
+      }
+      const validTitle = escape(title);
+      const validAuthor = escape(author);
 
       if((validFile == 'jpg' || validFile == 'png' || validFile == 'gif' ) &&
         title.length <= 25 &&
-        author.length <= 50
+        author.length <= 50 &&
+        ((validTitle.includes("&") == false) && (validAuthor.includes("&") == false)) &&
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
         ){
-        const newPhoto = new Photo({ title, author, email, src: fileName, votes: 0 });
+        const newPhoto = new Photo({ title: validTitle, author: validAuthor, email, src: fileName, votes: 0 });
         await newPhoto.save(); // ...save new photo in DB
         res.json(newPhoto);
       }

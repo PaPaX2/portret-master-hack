@@ -61,33 +61,27 @@ exports.loadAll = async (req, res) => {
 /****** VOTE FOR PHOTO ********/
 
 exports.vote = async (req, res) => {
+
   try {
-    const voter = await Vote.findOne({ user: req.ip });
-    console.log('voter',voter._id)
     const photoToUpdate = await Photo.findOne({ _id: req.params.id });
-    if (!photoToUpdate) res.status(404).json({ message: 'Not found' });
+    const voter = await Vote.findOne({ user: req.ip });
+    console.log(voter);
+
+    if(!photoToUpdate) res.status(404).json({ message: 'Not found' });
+    
     else {
-      if (voter) {
-        if (voter.votes.includes(photoToUpdate._id)) {
-          res.status(500).json(err);
-        } else {
-          voter.votes.push(photoToUpdate._id);
-          photoToUpdate.votes++;
-          photoToUpdate.save();
-          res.send({ message: 'OK' });
-        }
-      } else {
-        const newVoter = new Vote({
-          user: req.ip,
-          votes: [photoToUpdate._id]
-        });
-        await newVoter.save();
-        photoToUpdate.votes++;
-        photoToUpdate.save();
-        res.send({ message: 'OK' });
-      }
+      const newVoter = new Voter({
+        user: req.ip,
+        votes: [photoToUpdate._id]
+      });
+      await newVoter.save();
+      photoToUpdate.votes++;
+     
+      photoToUpdate.save();
+      res.send({ message: 'OK' });
     }
-  } catch (err) {
+  } catch(err) {
     res.status(500).json(err);
   }
+
 };

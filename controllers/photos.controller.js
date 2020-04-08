@@ -63,7 +63,6 @@ exports.loadAll = async (req, res) => {
 exports.vote = async (req, res) => {
   try {
     const voter = await Vote.findOne({ user: req.ip });
-    console.log('voter',voter._id)
     const photoToUpdate = await Photo.findOne({ _id: req.params.id });
     if (!photoToUpdate) res.status(404).json({ message: 'Not found' });
     else {

@@ -2,3 +2,5 @@ node_modules
 
 public/uploads*
 !public/uploads/*.jpg 
+
+formeonly.js
